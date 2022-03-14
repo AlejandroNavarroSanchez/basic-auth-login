@@ -42,23 +42,23 @@ public class ConfiguracioSeguretatWeb extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(elmeuUserDetailsService).passwordEncoder(xifrat);
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        http.cors() //amb aquesta línia evitem la configuració custom del cors en un fitxer a part
-//                .and()
-//                .httpBasic()
-//                .authenticationEntryPoint(elmeuEntryPoint)
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers(HttpMethod.GET, "/me/**").hasRole("ADMIN") //per fer proves del forbidden
-//                .antMatchers(HttpMethod.GET, "/usuaris/**", "/videojocs/**").hasRole("USER")
-//                .antMatchers(HttpMethod.POST, "/usuaris/**", "/videojocs/**").hasRole("USER")
-//                .antMatchers(HttpMethod.PUT, "/videojocs/**").hasRole("USER")
-//                .antMatchers(HttpMethod.DELETE, "/videojocs/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.POST, "/videojocs/**").hasAnyRole("USER", "ADMIN")
-//                .anyRequest().authenticated();
-//        // .and()
-//        // .csrf().disable();
-//    }
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors() //amb aquesta línia evitem la configuració custom del cors en un fitxer a part
+                .and()
+                .httpBasic()
+                .authenticationEntryPoint(elmeuEntryPoint)
+                .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/me/**").hasRole("ADMIN") //per fer proves del forbidden
+                .antMatchers(HttpMethod.GET, "/usuaris/**", "/videojocs/**").hasRole("USER")
+                .antMatchers(HttpMethod.POST, "/usuaris/**", "/videojocs/**").hasRole("USER")
+                .antMatchers(HttpMethod.PUT, "/videojocs/**").hasRole("USER")
+                .antMatchers(HttpMethod.DELETE, "/videojocs/**").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/videojocs/**").hasAnyRole("USER", "ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .csrf().disable();
+    }
 
 }
